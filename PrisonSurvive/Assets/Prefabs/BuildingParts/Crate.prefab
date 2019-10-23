@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 3840765993690608550}
   - component: {fileID: 3308871141230036210}
   - component: {fileID: 3808068604146801453}
+  - component: {fileID: 600479483841653020}
   m_Layer: 0
   m_Name: Crate_moving
-  m_TagString: Untagged
+  m_TagString: CrateToMoveByButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,6 +93,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.9131632, y: 2, z: 0.06000024}
   m_Center: {x: 0.4565816, y: 1, z: -0.029999908}
+--- !u!95 &600479483841653020
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2004892175629227041}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ae716a5c6ee403246905e01c8ac64408, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5186201933612184164
 GameObject:
   m_ObjectHideFlags: 0
