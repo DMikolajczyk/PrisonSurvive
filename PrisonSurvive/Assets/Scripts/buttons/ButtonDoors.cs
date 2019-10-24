@@ -1,12 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ButtonDoors : MonoBehaviour
 {
     private bool isOpen = false;
     private bool isInRange = false;
     private List<Animator> cratesAnimators = new List<Animator>();
+
+    [Header("Text to set")]
+    [SerializeField]
+    private string textForOpen = "Press E to open cells.";
+    [SerializeField]
+    private string textForClose = "Press E to close cells.";
+
+    [SerializeField]
+    [Header("Canvas fields")]
+    private GameObject msgPanel = null;
+    [SerializeField]
+    private GameObject msgText = null;
+
+    
     
     private void Start()
     {
@@ -21,60 +36,75 @@ public class ButtonDoors : MonoBehaviour
     {
         if (isInRange && Input.GetButtonUp("Action"))
         {
-            updateIsOpen();
-            if (!isOpen)
+            if (cratesAnimators[1].GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
             {
-                Open();
-            }
-            else
-            {
-                Close();
+                if (!isOpen)
+                {
+                    Open();
+                }
+                else
+                {
+                    Close();
+                }
+                isOpen = !isOpen;
+                UpdateText();
             }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        isInRange = true;
+        if(other.tag == "Player")
+        {
+            isInRange = true;
+            UpdateText();
+            msgPanel.SetActive(true);
+        }
     }
     private void OnTriggerExit(Collider other)
     {
-        isInRange = false;
+        if (other.tag == "Player")
+        {
+            isInRange = false;
+            msgPanel.SetActive(false);
+        }
     }
+
 
     private void Open()
     {
-        changeColor(Color.green);
+        ChangeColor(Color.green);
         foreach (Animator a in cratesAnimators)
         {
-            a.SetTrigger("Open");
+            a.SetBool("open", true);
         }
     }
 
     private void Close()
     {
-        changeColor(Color.red);
+        ChangeColor(Color.red);
         foreach (Animator a in cratesAnimators)
         {
-            a.SetTrigger("Close");
+            a.SetBool("open", false);
         }
     }
 
-    private void updateIsOpen()
-    {
-        if (cratesAnimators[0].GetCurrentAnimatorStateInfo(0).IsName("CrateOpen"))
-        {
-            isOpen = true;
-        }
-        else if (cratesAnimators[0].GetCurrentAnimatorStateInfo(0).IsName("CrateClose"))
-        {
-            isOpen = false;
-        }
-    }
 
-    private void changeColor(Color c)
+    private void ChangeColor(Color c)
     {
         GetComponent<Renderer>().material.SetColor("_Color", c);
+    }
+
+    private void UpdateText()
+    {
+        if (isOpen)
+        {
+            msgText.GetComponent<Text>().text = textForClose;
+        }
+        else
+        {
+            msgText.GetComponent<Text>().text = textForOpen;
+        }
     }
 
 }

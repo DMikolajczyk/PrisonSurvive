@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3840765993690608550}
   - component: {fileID: 3308871141230036210}
   - component: {fileID: 3808068604146801453}
-  - component: {fileID: 600479483841653020}
+  - component: {fileID: 8613517523269150080}
   m_Layer: 0
   m_Name: Crate_moving
   m_TagString: CrateToMoveByButton
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2004892175629227041}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.9368368, y: 0.000000059604645, z: -0.0017314628}
+  m_LocalPosition: {x: 0.9368368, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8188193894168723575}
@@ -93,7 +93,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.9131632, y: 2, z: 0.06000024}
   m_Center: {x: 0.4565816, y: 1, z: -0.029999908}
---- !u!95 &600479483841653020
+--- !u!95 &8613517523269150080
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -136,7 +136,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5186201933612184164}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.15, y: -0.0000683483, z: 3}
+  m_LocalPosition: {x: 2.15, y: 0, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6974277579255807225}
