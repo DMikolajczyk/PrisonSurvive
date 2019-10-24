@@ -92,7 +92,7 @@ public class ButtonDoors : MonoBehaviour
 
     private void ChangeColor(Color c)
     {
-        GetComponent<Renderer>().material.SetColor("_Color", c);
+        GetComponent<Renderer>().material.SetColor("_BaseColor", c);
     }
 
     private void UpdateText()
