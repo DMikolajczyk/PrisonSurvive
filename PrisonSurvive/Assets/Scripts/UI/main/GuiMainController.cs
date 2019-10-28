@@ -10,7 +10,7 @@ public class GuiMainController : MonoBehaviour
     GameObject healthBar = null;
 
     [SerializeField]
-    CharacterStatistics playerStats = null;
+    Prisoner playerStats = null;
 
     private void Start()
     {

@@ -9,7 +9,7 @@ public class HurtCharacterInTrigger : MonoBehaviour
     [SerializeField]
     private float timeStep = 1.0f;
 
-    private CharacterStatistics stats = null;
+    private Prisoner stats = null;
     private float timer = 0;
 
     private void Start()
@@ -19,7 +19,7 @@ public class HurtCharacterInTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        stats = other.GetComponent<CharacterStatistics>();
+        stats = other.GetComponent<Prisoner>();
         stats.SetIsHurting(true);
     }
 
@@ -28,7 +28,7 @@ public class HurtCharacterInTrigger : MonoBehaviour
         timer += Time.deltaTime;
         if((stats != null) && (timer > timeStep))
         {
-            stats.reduceHealth(damage);
+            stats.ReduceHealth(damage);
             timer = 0;
         }
     }

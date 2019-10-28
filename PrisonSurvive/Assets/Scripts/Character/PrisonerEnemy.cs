@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PrisonerEnemy : MonoBehaviour
+public class PrisonerEnemy : Prisoner
 {
 
     [SerializeField]
