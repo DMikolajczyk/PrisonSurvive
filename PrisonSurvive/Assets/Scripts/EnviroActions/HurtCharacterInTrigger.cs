@@ -9,8 +9,9 @@ public class HurtCharacterInTrigger : MonoBehaviour
     [SerializeField]
     private float timeStep = 1.0f;
 
-    private Prisoner stats = null;
+    //private Prisoner stats = null;
     private float timer = 0;
+    private List<Prisoner> prisoners = new List<Prisoner>();
 
     private void Start()
     {
@@ -19,24 +20,35 @@ public class HurtCharacterInTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        stats = other.GetComponent<Prisoner>();
-        stats.SetIsHurting(true);
+        Prisoner p = other.GetComponent<Prisoner>();
+        if (!prisoners.Contains(p))
+        {
+            p.SetIsHurting(true);
+            prisoners.Add(p);
+        }
     }
 
     private void Update()
     {
         timer += Time.deltaTime;
-        if((stats != null) && (timer > timeStep))
+        if((prisoners.Count > 0) && (timer > timeStep))
         {
-            stats.ReduceHealth(damage);
+            foreach(Prisoner p in prisoners)
+            {
+                p.ReduceHealth(damage);
+            }
             timer = 0;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        stats.SetIsHurting(false);
-        stats = null;
+        Prisoner p = other.GetComponent<Prisoner>();
+        if (prisoners.Contains(p))
+        {
+            p.SetIsHurting(false);
+            prisoners.Remove(p);
+        }
     }
 
 }

@@ -53,9 +53,9 @@ public class Prisoner : MonoBehaviour
     {
         return health;
     }
-    public void SetIsHurting(bool isHurting)
+    public void SetIsHurting(bool isHurt)
     {
-        this.isHurting = isHurting;
+        this.isHurting = isHurt;
     }
 
 }
