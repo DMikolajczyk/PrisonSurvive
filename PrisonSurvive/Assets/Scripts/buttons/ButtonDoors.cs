@@ -5,9 +5,8 @@ using UnityEngine.UI;
 
 public class ButtonDoors : MonoBehaviour
 {
-    private bool isOpen = false;
+    //private bool isOpen = false;
     private bool isInRange = false;
-    private List<Animator> cratesAnimators = new List<Animator>();
 
     [Header("Text to set")]
     [SerializeField]
@@ -21,32 +20,24 @@ public class ButtonDoors : MonoBehaviour
     [SerializeField]
     private GameObject msgText = null;
 
-    
-    
-    private void Start()
-    {
-        GameObject[] crates = GameObject.FindGameObjectsWithTag("CrateToMoveByButton");
-        foreach (GameObject crate in crates)
-        {
-            cratesAnimators.Add(crate.GetComponent<Animator>());
-        }
-    }
 
     private void Update()
     {
         if (isInRange && Input.GetButtonUp("Action"))
         {
-            if (cratesAnimators[1].GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
+            if (BlockManager.InstanceBM.animIsFinished())
             {
-                if (!isOpen)
+                if (!BlockManager.InstanceBM.IsOpen)
                 {
-                    Open();
+                    BlockManager.InstanceBM.OpenCells(true);
+                    ChangeColor(Color.green);
                 }
                 else
                 {
-                    Close();
+                    BlockManager.InstanceBM.OpenCells(false);
+                    ChangeColor(Color.red);
                 }
-                isOpen = !isOpen;
+                //BlockManager.InstanceBM.IsOpen = !BlockManager.InstanceBM.IsOpen;
                 UpdateText();
             }
         }
@@ -71,25 +62,6 @@ public class ButtonDoors : MonoBehaviour
     }
 
 
-    private void Open()
-    {
-        ChangeColor(Color.green);
-        foreach (Animator a in cratesAnimators)
-        {
-            a.SetBool("open", true);
-        }
-    }
-
-    private void Close()
-    {
-        ChangeColor(Color.red);
-        foreach (Animator a in cratesAnimators)
-        {
-            a.SetBool("open", false);
-        }
-    }
-
-
     private void ChangeColor(Color c)
     {
         GetComponent<Renderer>().material.SetColor("_BaseColor", c);
@@ -97,7 +69,7 @@ public class ButtonDoors : MonoBehaviour
 
     private void UpdateText()
     {
-        if (isOpen)
+        if (BlockManager.InstanceBM.IsOpen)
         {
             msgText.GetComponent<Text>().text = textForClose;
         }

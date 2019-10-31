@@ -995,6 +995,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthMax: 100
   healthSpeedRegeneration: 1
+  damage: 10
+  timeToNextHit: 1.5
   animator: {fileID: 7800230464556560791}
   moveSpeed: 2
   rotateSpeed: 5

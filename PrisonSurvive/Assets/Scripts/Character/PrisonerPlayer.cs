@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PrisonerPlayer : Prisoner
@@ -67,6 +68,12 @@ public class PrisonerPlayer : Prisoner
                 }
             }
         }
+    }
+
+    protected override void Die()
+    {
+        base.Die();
+        SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
     }
 
 }

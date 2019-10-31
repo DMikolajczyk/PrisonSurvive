@@ -12,14 +12,14 @@ public class PrisonerEnemy : Prisoner
     [SerializeField]
     private float moveSpeed = 2.0f,
                 rotateSpeed = 5.0f,
-                distBlocker = 5.0f,
-                distThreshold = 0.2f;
+                distBlocker = 5.0f;
     [SerializeField]
     private int cell_id = 1;
     [SerializeField]
     private GameObject healthBar = null;
 
 
+    public bool TargetSet { get; set; }
 
     private bool setTargetForPlayer = false;
     private bool setTargetForCell = false;
@@ -32,12 +32,17 @@ public class PrisonerEnemy : Prisoner
         distToTarget = 0.0f;
 
 
+    public enum ActionState { StayFrontOfCell, GoingToCell, GoingOutOfCell, StayAtCenterOfCell, StayOutOfCell}
+    private ActionState actionState;
 
 
     protected new void Start()
     {
         base.Start();
         player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        //TO-CHANGE
+        actionState = ActionState.StayOutOfCell;
     }
 
     protected new void Update()
@@ -52,6 +57,11 @@ public class PrisonerEnemy : Prisoner
                 if (setTargetForPlayer)
                 {
                     target = new Vector3(player.position.x, transform.position.y, player.position.z);
+                    TargetSet = true;
+                }
+                else
+                {
+                    TargetSet = false;
                 }
             }
             else if (Input.GetKeyUp(KeyCode.O))
@@ -60,15 +70,24 @@ public class PrisonerEnemy : Prisoner
                 if (setTargetForCell)
                 {
                     target = new Vector3(findCell(0, cell_id).x, transform.position.y, findCell(0, cell_id).z);
+                    actionState = ActionState.GoingToCell;
+                    TargetSet = true;
+                }
+                else
+                {
+                    TargetSet = false;
                 }
             }
-            if (setTargetForPlayer)
+            if (TargetSet)
             {
-                goToTarget(target, true, distBlocker);
-            }
-            else if (setTargetForCell)
-            {
-                goToTarget(target, false, distThreshold);
+                if (setTargetForPlayer)
+                {
+                    goToTarget(target, true, distBlocker);
+                }
+                else if (setTargetForCell)
+                {
+                    goToTarget(target, false, 0.0f);
+                }
             }
             else
             {
@@ -170,7 +189,25 @@ public class PrisonerEnemy : Prisoner
 
     protected override void Die()
     {
+        base.Die();
         Destroy(gameObject);
     }
+
+    public ActionState GetActionState()
+    {
+        return actionState;
+    }
+
+    public void SetActionState(ActionState state)
+    {
+        actionState = state;
+    }
+
+    public void SetTarget(Vector3 pos)
+    {
+        target = new Vector3(pos.x, transform.position.y, pos.z);
+        TargetSet = true;
+    }
+
 
 }
