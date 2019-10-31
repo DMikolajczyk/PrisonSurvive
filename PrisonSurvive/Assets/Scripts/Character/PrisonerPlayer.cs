@@ -21,7 +21,7 @@ public class PrisonerPlayer : Prisoner
 
     protected override void UpdateGuiStats()
     {
-        gui.UpdateHealthBar();
+        gui.UpdateHealthBar(health, healthMax);
     }
 
     public override void ReduceHealth (float val)
@@ -56,7 +56,6 @@ public class PrisonerPlayer : Prisoner
             if(Physics.Raycast(ray, out hit))
             {
                 Transform obj = hit.transform;
-                //Debug.Log(Vector3.Distance(obj.position, transform.position));
                 if (Vector3.Distance(obj.position, transform.position) < hitRange)
                 {
                     PrisonerEnemy prisoner = obj.gameObject.GetComponent<PrisonerEnemy>();

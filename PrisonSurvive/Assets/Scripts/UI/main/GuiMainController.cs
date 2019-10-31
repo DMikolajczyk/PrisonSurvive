@@ -8,19 +8,11 @@ public class GuiMainController : MonoBehaviour
 
     [SerializeField]
     GameObject healthBar = null;
+    
 
-    [SerializeField]
-    Prisoner playerStats = null;
-
-    private void Start()
+    public void UpdateHealthBar(float hp, float hp_max)
     {
-        UpdateHealthBar();
-    }
-
-
-    public void UpdateHealthBar()
-    {
-        healthBar.GetComponent<Image>().fillAmount = playerStats.GetCurrentHealth() / playerStats.GetMaxHealth();
+        healthBar.GetComponent<Image>().fillAmount = hp / hp_max;
     }
 
 

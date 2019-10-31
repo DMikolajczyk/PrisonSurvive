@@ -165,7 +165,12 @@ public class PrisonerEnemy : Prisoner
 
     protected override void UpdateGuiStats()
     {
-        healthBar.GetComponent<Image>().fillAmount = GetCurrentHealth() / GetMaxHealth();
+        healthBar.GetComponent<Image>().fillAmount = health / healthMax;
+    }
+
+    protected override void Die()
+    {
+        Destroy(gameObject);
     }
 
 }

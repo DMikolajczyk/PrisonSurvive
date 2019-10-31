@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class Prisoner : MonoBehaviour
 {
     [SerializeField]
-    private float healthMax = 100.0f;
+    protected float healthMax = 100.0f;
     [SerializeField]
-    private float healthSpeedRegeneration = 1.0f;
+    protected float healthSpeedRegeneration = 1.0f;
 
     [SerializeField]
     protected float damage = 10.0f;
@@ -17,7 +17,7 @@ public class Prisoner : MonoBehaviour
 
 
     protected float hitRange = 1.5f;
-    private float health = 100.0f;
+    protected float health = 100.0f;
     private bool isHurting = false;
 
     protected void Start()
@@ -28,6 +28,10 @@ public class Prisoner : MonoBehaviour
     protected void Update()
     {
         RegenerateHealth();
+        if(health <= 0)
+        {
+            Die();
+        }
     }
 
     protected void RegenerateHealth()
@@ -52,15 +56,8 @@ public class Prisoner : MonoBehaviour
         
     }
 
+    protected virtual void Die() { }
 
-    public float GetMaxHealth()
-    {
-        return healthMax;
-    }
-    public float GetCurrentHealth()
-    {
-        return health;
-    }
     public void SetIsHurting(bool isHurt)
     {
         this.isHurting = isHurt;
