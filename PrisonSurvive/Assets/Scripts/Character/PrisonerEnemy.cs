@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PrisonerEnemy : Prisoner
 {
@@ -15,6 +16,8 @@ public class PrisonerEnemy : Prisoner
                 distThreshold = 0.2f;
     [SerializeField]
     private int cell_id = 1;
+    [SerializeField]
+    private GameObject healthBar = null;
 
 
 
@@ -31,13 +34,15 @@ public class PrisonerEnemy : Prisoner
 
 
 
-    private void Start()
+    protected new void Start()
     {
+        base.Start();
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    private void Update()
+    protected new void Update()
     {
+        base.Update();
         Animation();
         if (!isWaitingForMove)
         {
@@ -156,6 +161,11 @@ public class PrisonerEnemy : Prisoner
         {
             isWaitingForMove = false;
         }
+    }
+
+    protected override void UpdateGuiStats()
+    {
+        healthBar.GetComponent<Image>().fillAmount = GetCurrentHealth() / GetMaxHealth();
     }
 
 }

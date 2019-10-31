@@ -9,11 +9,23 @@ public class Prisoner : MonoBehaviour
     private float healthMax = 100.0f;
     [SerializeField]
     private float healthSpeedRegeneration = 1.0f;
-    
+
+    [SerializeField]
+    protected float damage = 10.0f;
+    [SerializeField]
+    protected float timeToNextHit = 1.5f;
+
+
+    protected float hitRange = 1.5f;
     private float health = 100.0f;
     private bool isHurting = false;
-    
-    private void FixedUpdate()
+
+    protected void Start()
+    {
+        UpdateGuiStats();
+    }
+
+    protected void Update()
     {
         RegenerateHealth();
     }
@@ -22,7 +34,7 @@ public class Prisoner : MonoBehaviour
     {
         if ((health < healthMax) && (!isHurting))
         {
-            health += healthSpeedRegeneration * 0.05f;
+            health += healthSpeedRegeneration * Time.deltaTime;
             UpdateGuiStats();
         }
     }
@@ -32,10 +44,6 @@ public class Prisoner : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        
-    }
 
     public virtual void ReduceHealth(float val)
     {

@@ -16,6 +16,7 @@ public class PrisonerPlayer : Prisoner
 
     private float timeOfBloodScreen = 0.5f;
     private float threshold = 0.01f;
+    private float hitTimer = 0.0f;
 
 
     protected override void UpdateGuiStats()
@@ -29,8 +30,9 @@ public class PrisonerPlayer : Prisoner
         bloodScreenImage.color = bloodScreenColor;
     }
 
-    private void Update()
+    protected new void Update()
     {
+        base.Update();
         if (bloodScreenImage.color.a > threshold)
         {
             bloodScreenImage.color = Color.Lerp(bloodScreenImage.color, Color.clear, timeOfBloodScreen * Time.deltaTime);
@@ -39,6 +41,32 @@ public class PrisonerPlayer : Prisoner
         else if (bloodScreenImage.color != Color.clear)
         {
             bloodScreenImage.color = Color.clear;
+        }
+        HitOther();
+    }
+
+
+    private void HitOther()
+    {
+        hitTimer += Time.deltaTime;
+        if (Input.GetMouseButtonDown(0) && hitTimer > timeToNextHit)
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if(Physics.Raycast(ray, out hit))
+            {
+                Transform obj = hit.transform;
+                //Debug.Log(Vector3.Distance(obj.position, transform.position));
+                if (Vector3.Distance(obj.position, transform.position) < hitRange)
+                {
+                    PrisonerEnemy prisoner = obj.gameObject.GetComponent<PrisonerEnemy>();
+                    if (prisoner != null)
+                    {
+                        prisoner.ReduceHealth(damage);
+                        hitTimer = 0.0f;
+                    }
+                }
+            }
         }
     }
 
